@@ -142,15 +142,6 @@
       </div>
 
       <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-        
-        <!-- Logo on Home Page Above Title -->
-        <div class="flex justify-center mb-6">
-          <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl overflow-hidden p-2 bg-cream/10 backdrop-blur-md border border-earth-200/30 shadow-2xl transition-transform hover:scale-105 duration-300">
-            <img src="images/logo.jpg" 
-                 alt="Khumbu Agro Tourism Logo" 
-                 class="w-full h-full object-cover rounded-2xl">
-          </div>
-        </div>
 
         <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-cream mb-4 leading-tight drop-shadow-sm">
           Khumbu Agro Tourism
@@ -367,10 +358,6 @@
                 <h3 class="font-serif text-xl font-bold text-slate-900 mb-2" x-text="activity.title"></h3>
                 <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4" x-text="activity.description"></p>
               </div>
-              <button @click="openBooking(activity.title)" class="w-full py-2.5 rounded-lg bg-slate-900 hover:bg-earth-700 text-white text-xs font-semibold transition flex items-center justify-center gap-1">
-                <span>Inquire & Reserve Spot</span>
-                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-              </button>
             </div>
           </div>
         </template>
