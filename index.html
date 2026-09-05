@@ -107,13 +107,6 @@
           <button @click="setPage('contact')" :class="currentPage === 'contact' ? 'text-earth-700 font-semibold border-b-2 border-earth-600' : 'text-slate-700 hover:text-slate-950 font-medium'" class="py-2 text-sm transition-colors">Contact</button>
         </nav>
 
-        <!-- CTA Action -->
-        <div class="hidden md:flex items-center gap-4">
-          <button @click="openBooking('Farm Walks & Agricultural Discovery')" class="px-5 py-2.5 rounded-full bg-slate-900 text-earth-50 text-sm font-medium hover:bg-earth-700 transition shadow-sm hover:shadow flex items-center gap-2">
-            <span>Book Experience</span>
-            <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
-          </button>
-        </div>
 
         <!-- Mobile Menu Button -->
         <div class="flex md:hidden">
@@ -133,11 +126,6 @@
       <button @click="setPage('location'); mobileMenuOpen = false" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-800 hover:bg-earth-100">Trail Map</button>
       <button @click="setPage('why-us'); mobileMenuOpen = false" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-800 hover:bg-earth-100">Why Choose Us</button>
       <button @click="setPage('contact'); mobileMenuOpen = false" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-800 hover:bg-earth-100">Contact</button>
-      <div class="pt-3">
-        <button @click="openBooking('Farm Walks & Agricultural Discovery'); mobileMenuOpen = false" class="w-full py-3 rounded-xl bg-slate-900 text-earth-50 text-center font-medium shadow">
-          Book Experience
-        </button>
-      </div>
     </div>
   </header>
 
@@ -155,6 +143,14 @@
 
       <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
         
+        <!-- Logo on Home Page Above Title -->
+        <div class="flex justify-center mb-6">
+          <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl overflow-hidden p-2 bg-cream/10 backdrop-blur-md border border-earth-200/30 shadow-2xl transition-transform hover:scale-105 duration-300">
+            <img src="images/logo.jpg" 
+                 alt="Khumbu Agro Tourism Logo" 
+                 class="w-full h-full object-cover rounded-2xl">
+          </div>
+        </div>
 
         <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-cream mb-4 leading-tight drop-shadow-sm">
           Khumbu Agro Tourism
@@ -447,12 +443,6 @@
               </div>
             </div>
 
-            <div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <span class="text-xs text-slate-500 italic">Planning a trip during this season? Reserve early to match planting and harvest schedules.</span>
-              <button @click="openBooking('Seasonal Farming: ' + s.name)" class="px-6 py-2.5 rounded-lg bg-slate-900 text-white text-xs font-semibold hover:bg-earth-700 transition">
-                Book for <span x-text="s.name"></span>
-              </button>
-            </div>
           </div>
         </template>
       </div>
