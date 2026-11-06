@@ -218,14 +218,6 @@
       </div>
     </section>
 
-    <!-- The 5 Pillars Interactive Grid -->
-    <section class="py-24 bg-white border-b border-earth-200/70">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-3xl mb-16">
-          <span class="text-xs uppercase tracking-widest text-earth-700 font-bold">The Foundation</span>
-          <h2 class="font-serif text-3xl sm:text-4xl text-slate-900 font-bold mt-1">The Five Pillars of the Khumbu Experience</h2>
-        </div>
-
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <template x-for="pillar in pillars" :key="pillar.id">
             <div class="p-8 rounded-2xl bg-cream border border-earth-200 shadow-sm hover:shadow-md transition flex flex-col justify-between group">
@@ -614,17 +606,6 @@
             <li><button @click="setPage('location')" class="hover:text-earth-300 transition">Trail Map & Geography</button></li>
             <li><button @click="setPage('why-us')" class="hover:text-earth-300 transition">Why Choose Us</button></li>
             <li><button @click="setPage('contact')" class="hover:text-earth-300 transition">Contact & Invitation</button></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="text-xs uppercase tracking-widest font-bold text-white mb-4">The Five Pillars</h4>
-          <ul class="space-y-2 text-xs text-slate-400">
-            <li>• Farm — Cultivate & Learn</li>
-            <li>• Food — Taste & Share</li>
-            <li>• Nature — Explore & Breathe</li>
-            <li>• Culture — Meet & Understand</li>
-            <li>• Well-Being — Slow Down & Nourish</li>
           </ul>
         </div>
 
