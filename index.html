@@ -99,7 +99,6 @@
         <!-- Desktop Navigation Tabs -->
         <nav class="hidden md:flex items-center gap-6">
           <button @click="setPage('home')" :class="currentPage === 'home' ? 'text-earth-700 font-semibold border-b-2 border-earth-600' : 'text-slate-700 hover:text-slate-950 font-medium'" class="py-2 text-sm transition-colors">Home</button>
-          <button @click="setPage('vision')" :class="currentPage === 'vision' ? 'text-earth-700 font-semibold border-b-2 border-earth-600' : 'text-slate-700 hover:text-slate-950 font-medium'" class="py-2 text-sm transition-colors">Vision & Pillars</button>
           <button @click="setPage('activities')" :class="currentPage === 'activities' ? 'text-earth-700 font-semibold border-b-2 border-earth-600' : 'text-slate-700 hover:text-slate-950 font-medium'" class="py-2 text-sm transition-colors">Activities & Stays</button>
           <button @click="setPage('calendar')" :class="currentPage === 'calendar' ? 'text-earth-700 font-semibold border-b-2 border-earth-600' : 'text-slate-700 hover:text-slate-950 font-medium'" class="py-2 text-sm transition-colors">Seasonal Calendar</button>
           <button @click="setPage('location')" :class="currentPage === 'location' ? 'text-earth-700 font-semibold border-b-2 border-earth-600' : 'text-slate-700 hover:text-slate-950 font-medium'" class="py-2 text-sm transition-colors">Trail Map</button>
@@ -120,7 +119,6 @@
     <!-- Mobile Dropdown Menu -->
     <div x-show="mobileMenuOpen" x-cloak @click.outside="mobileMenuOpen = false" class="md:hidden bg-cream border-b border-earth-200 px-4 pt-2 pb-6 space-y-2 shadow-lg">
       <button @click="setPage('home'); mobileMenuOpen = false" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-800 hover:bg-earth-100">Home</button>
-      <button @click="setPage('vision'); mobileMenuOpen = false" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-800 hover:bg-earth-100">Vision & Pillars</button>
       <button @click="setPage('activities'); mobileMenuOpen = false" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-800 hover:bg-earth-100">Activities & Stays</button>
       <button @click="setPage('calendar'); mobileMenuOpen = false" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-800 hover:bg-earth-100">Seasonal Calendar</button>
       <button @click="setPage('location'); mobileMenuOpen = false" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-800 hover:bg-earth-100">Trail Map</button>
@@ -295,24 +293,6 @@
       </div>
     </section>
   </main>
-
-  <!-- ==================== PAGE: VISION & PILLARS ==================== -->
-  <section x-show="currentPage === 'vision'" x-cloak class="py-20 flex-grow">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-xs uppercase tracking-widest text-earth-700 font-bold">Purpose & Horizon</span>
-        <h1 class="font-serif text-4xl sm:text-5xl text-slate-900 font-bold mt-2 mb-6">Our Vision</h1>
-        <div class="p-8 rounded-2xl bg-earth-100/70 border border-earth-200 text-slate-800 text-base sm:text-lg leading-relaxed font-serif italic shadow-sm">
-          "To establish Khumbu as a distinctive destination for sustainable agro-tourism and nature-based wellness — creating meaningful experiences for visitors while supporting local farmers, strengthening community livelihoods, preserving traditional knowledge, and caring for the Himalayan environment."
-        </div>
-      </div>
-
-      <div class="mb-16">
-        <div class="text-center mb-12">
-          <span class="text-xs uppercase tracking-widest text-earth-700 font-bold">Comprehensive Framework</span>
-          <h2 class="font-serif text-3xl font-bold text-slate-900 mt-1">The Five Pillars of the Khumbu Experience</h2>
-        </div>
 
         <div class="space-y-8">
           <template x-for="pillar in pillars" :key="pillar.id">
@@ -629,7 +609,6 @@
           <h4 class="text-xs uppercase tracking-widest font-bold text-white mb-4">Explore</h4>
           <ul class="space-y-2 text-xs">
             <li><button @click="setPage('home')" class="hover:text-earth-300 transition">Home Overview</button></li>
-            <li><button @click="setPage('vision')" class="hover:text-earth-300 transition">Vision & Five Pillars</button></li>
             <li><button @click="setPage('activities')" class="hover:text-earth-300 transition">Activities & Farm Stays</button></li>
             <li><button @click="setPage('calendar')" class="hover:text-earth-300 transition">Seasonal Calendar</button></li>
             <li><button @click="setPage('location')" class="hover:text-earth-300 transition">Trail Map & Geography</button></li>
