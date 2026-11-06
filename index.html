@@ -218,26 +218,6 @@
       </div>
     </section>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <template x-for="pillar in pillars" :key="pillar.id">
-            <div class="p-8 rounded-2xl bg-cream border border-earth-200 shadow-sm hover:shadow-md transition flex flex-col justify-between group">
-              <div>
-                <div class="w-12 h-12 rounded-xl bg-earth-100 text-earth-700 flex items-center justify-center mb-6 group-hover:bg-earth-600 group-hover:text-white transition">
-                  <i :data-lucide="pillar.icon" class="w-6 h-6"></i>
-                </div>
-                <div class="text-xs font-bold uppercase tracking-wider text-earth-600 mb-1" x-text="pillar.subtitle"></div>
-                <h3 class="font-serif text-2xl font-bold text-slate-900 mb-3" x-text="pillar.title"></h3>
-                <p class="text-slate-600 text-sm leading-relaxed mb-4" x-text="pillar.description"></p>
-              </div>
-              <div class="pt-4 border-t border-earth-200/60 text-xs font-semibold text-earth-700 flex items-center gap-1">
-                <span x-text="pillar.tagline"></span>
-              </div>
-            </div>
-          </template>
-        </div>
-      </div>
-    </section>
-
     <!-- Featured Activities Preview -->
     <section class="py-24 bg-cream border-b border-earth-200/70">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -660,50 +640,7 @@
           guests: 1,
           date: ''
         },
-
-        pillars: [
-          {
-            id: 'farm',
-            title: 'Farm',
-            subtitle: 'Cultivate & Learn',
-            icon: 'sprout',
-            tagline: 'High-Altitude Permaculture • Generational Knowledge',
-            description: 'Discover organic and traditional high-altitude farming through guided farm walks and seasonal, hands-on activities. Learn how mountain communities cultivate crops, tend livestock, grow medicinal herbs, and work with the land using knowledge passed down through generations.'
-          },
-          {
-            id: 'food',
-            title: 'Food',
-            subtitle: 'Taste & Share',
-            icon: 'utensils',
-            tagline: 'Local Harvest • Wholesome Cooking',
-            description: 'Taste the authentic flavors of the Himalayas through fresh, locally grown ingredients and traditional cuisine. Enjoy wholesome farm-to-table meals and take part in hands-on cooking experiences.'
-          },
-          {
-            id: 'nature',
-            title: 'Nature',
-            subtitle: 'Explore & Breathe',
-            icon: 'trees',
-            tagline: 'Clean Mountain Air • Native Flora & Fauna',
-            description: 'Explore forests, farmland, streams, and mountain landscapes at a relaxed pace. Guided nature walks reveal native plants and herbs, local wildlife, and spectacular photography opportunities — all in the clean Himalayan air.'
-          },
-          {
-            id: 'culture',
-            title: 'Culture',
-            subtitle: 'Meet & Understand',
-            icon: 'users',
-            tagline: 'Sherpa Heritage • Sacred Traditions',
-            description: 'Engage with living Sherpa heritage through village architecture, sacred traditions, and shared stories — fostering mutual respect and authentic cross-cultural connection.'
-          },
-          {
-            id: 'well-being',
-            title: 'Well-Being',
-            subtitle: 'Slow Down, Move, Nourish, Reflect',
-            icon: 'heart-pulse',
-            tagline: 'Gentle Movement • Wholesome Peace',
-            description: 'Experience the natural benefits of mountain life: gentle outdoor activity, wholesome food, fresh air, peaceful surroundings, and distance from the pressures of everyday life.'
-          }
-        ],
-
+        
         activities: [
           {
             id: 'farm-walks',
