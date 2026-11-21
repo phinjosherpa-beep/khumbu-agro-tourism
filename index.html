@@ -32,11 +32,29 @@
         extend: {
           colors: {
             slate: {
-              900: '#0f172a',
-              850: '#151f33',
-              800: '#1e293b',
-              700: '#334155',
+              900: '#0b1f3a',
+              850: '#10294a',
+              800: '#16304f',
+              700: '#2c4160',
             },
+            forest: {
+              50:  '#f1f7f2',
+              100: '#dcecdf',
+              200: '#bcd9c2',
+              300: '#8fc09b',
+              500: '#3a8c54',
+              600: '#2c7a45',
+              700: '#22643a',
+              800: '#1b4f2f',
+              900: '#12361f',
+            },
+            brand: {
+              600: '#1d4ea8',
+              700: '#173f8a',
+              800: '#12326e',
+              900: '#0b2150',
+            },
+            mist: '#eef5ef',
             earth: {
               50: '#fbf9f5',
               100: '#f5efe6',
@@ -60,8 +78,18 @@
   <style>
     [x-cloak] { display: none !important; }
     .bg-pattern {
-      background-image: radial-gradient(rgba(140, 120, 81, 0.08) 1px, transparent 1px);
+      background-image: radial-gradient(rgba(44, 122, 69, 0.09) 1px, transparent 1px);
       background-size: 24px 24px;
+    }
+    :focus-visible { outline: 2px solid #2c7a45; outline-offset: 2px; }
+    /* Accent rule under each inner-page title */
+    body > section h1::after {
+      content: '';
+      display: block;
+      width: 56px; height: 4px;
+      margin: 16px auto 0;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #2c7a45, #d9a441);
     }
     .leaflet-popup-content-wrapper {
       background: #fcfbf7;
@@ -81,33 +109,35 @@
       x-data="agroApp()">
 
   <!-- ==================== NAVIGATION HEADER ==================== -->
-  <header class="sticky top-0 z-40 bg-cream/90 backdrop-blur-md border-b border-earth-200/60 transition-all">
+  <header class="sticky top-0 z-40 bg-cream/95 backdrop-blur-md border-b border-earth-200 shadow-sm transition-all">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20">
         
         <!-- Navbar Logo -->
         <a href="#top" @click.prevent="setPage('home')" class="flex items-center gap-3 group focus:outline-none">
           <div class="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center shadow-sm bg-slate-800 shrink-0 border border-earth-200/40">
-            <img src="images/new-logo.png" alt="Logo" class="w-full h-full object-cover">
+            <img src="images/logo.jpg" alt="Logo" class="w-full h-full object-cover">
           </div>
           <div>
             <span class="font-serif text-lg sm:text-xl font-bold tracking-tight text-slate-900 block leading-tight">Khumbu Agro Tourism</span>
-            <span class="text-[10px] sm:text-[11px] uppercase tracking-widest text-earth-600 font-semibold block">Monjo • 2,835 m • Sagarmatha</span>
+            <span class="text-[10px] sm:text-[11px] uppercase tracking-widest text-forest-600 font-semibold block">Monjo, Sagarmatha National Park</span>
           </div>
         </a>
 
         <!-- Desktop Navigation Tabs -->
-        <nav class="hidden md:flex items-center gap-6">
-          <button @click="setPage('home')" :class="currentPage === 'home' ? 'text-earth-700 font-semibold border-b-2 border-earth-600' : 'text-slate-700 hover:text-slate-950 font-medium'" class="py-2 text-sm transition-colors">Home</button>
-          <button @click="setPage('activities')" :class="currentPage === 'activities' ? 'text-earth-700 font-semibold border-b-2 border-earth-600' : 'text-slate-700 hover:text-slate-950 font-medium'" class="py-2 text-sm transition-colors">Activities & Stays</button>
-          <button @click="setPage('calendar')" :class="currentPage === 'calendar' ? 'text-earth-700 font-semibold border-b-2 border-earth-600' : 'text-slate-700 hover:text-slate-950 font-medium'" class="py-2 text-sm transition-colors">Seasonal Calendar</button>
-          <button @click="setPage('location')" :class="currentPage === 'location' ? 'text-earth-700 font-semibold border-b-2 border-earth-600' : 'text-slate-700 hover:text-slate-950 font-medium'" class="py-2 text-sm transition-colors">Trail Map</button>
-          <button @click="setPage('why-us')" :class="currentPage === 'why-us' ? 'text-earth-700 font-semibold border-b-2 border-earth-600' : 'text-slate-700 hover:text-slate-950 font-medium'" class="py-2 text-sm transition-colors">Why Choose Us</button>
-          <button @click="setPage('contact')" :class="currentPage === 'contact' ? 'text-earth-700 font-semibold border-b-2 border-earth-600' : 'text-slate-700 hover:text-slate-950 font-medium'" class="py-2 text-sm transition-colors">Contact</button>
+        <nav class="hidden lg:flex items-center gap-1" aria-label="Main">
+          <button @click="setPage('home')" :aria-current="currentPage === 'home' ? 'page' : null" :class="currentPage === 'home' ? 'bg-forest-100 text-forest-800 font-semibold' : 'text-slate-700 hover:bg-earth-100 hover:text-slate-900 font-medium'" class="px-3.5 py-2 rounded-full text-sm transition-colors">Home</button>
+          <button @click="setPage('vision')" :aria-current="currentPage === 'vision' ? 'page' : null" :class="currentPage === 'vision' ? 'bg-forest-100 text-forest-800 font-semibold' : 'text-slate-700 hover:bg-earth-100 hover:text-slate-900 font-medium'" class="px-3.5 py-2 rounded-full text-sm transition-colors">Vision & Pillars</button>
+          <button @click="setPage('activities')" :aria-current="currentPage === 'activities' ? 'page' : null" :class="currentPage === 'activities' ? 'bg-forest-100 text-forest-800 font-semibold' : 'text-slate-700 hover:bg-earth-100 hover:text-slate-900 font-medium'" class="px-3.5 py-2 rounded-full text-sm transition-colors">Activities & Stays</button>
+          <button @click="setPage('calendar')" :aria-current="currentPage === 'calendar' ? 'page' : null" :class="currentPage === 'calendar' ? 'bg-forest-100 text-forest-800 font-semibold' : 'text-slate-700 hover:bg-earth-100 hover:text-slate-900 font-medium'" class="px-3.5 py-2 rounded-full text-sm transition-colors">Seasonal Calendar</button>
+          <button @click="setPage('location')" :aria-current="currentPage === 'location' ? 'page' : null" :class="currentPage === 'location' ? 'bg-forest-100 text-forest-800 font-semibold' : 'text-slate-700 hover:bg-earth-100 hover:text-slate-900 font-medium'" class="px-3.5 py-2 rounded-full text-sm transition-colors">Trail Map</button>
+          <button @click="setPage('why-us')" :aria-current="currentPage === 'why-us' ? 'page' : null" :class="currentPage === 'why-us' ? 'bg-forest-100 text-forest-800 font-semibold' : 'text-slate-700 hover:bg-earth-100 hover:text-slate-900 font-medium'" class="px-3.5 py-2 rounded-full text-sm transition-colors">Why Choose Us</button>
+          <button @click="setPage('contact')" :aria-current="currentPage === 'contact' ? 'page' : null" :class="currentPage === 'contact' ? 'bg-forest-800 text-white' : 'bg-forest-600 text-white hover:bg-forest-700'" class="ml-2 px-5 py-2 rounded-full text-sm font-semibold shadow-sm transition-colors">Contact</button>
         </nav>
 
+
         <!-- Mobile Menu Button -->
-        <div class="flex md:hidden">
+        <div class="flex lg:hidden">
           <button @click="mobileMenuOpen = !mobileMenuOpen" class="p-2 rounded-lg text-slate-700 hover:bg-earth-100 focus:outline-none" aria-label="Toggle Navigation">
             <i :data-lucide="mobileMenuOpen ? 'x' : 'menu'" class="w-6 h-6"></i>
           </button>
@@ -116,13 +146,14 @@
     </div>
 
     <!-- Mobile Dropdown Menu -->
-    <div x-show="mobileMenuOpen" x-cloak @click.outside="mobileMenuOpen = false" class="md:hidden bg-cream border-b border-earth-200 px-4 pt-2 pb-6 space-y-2 shadow-lg">
-      <button @click="setPage('home'); mobileMenuOpen = false" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-800 hover:bg-earth-100">Home</button>
-      <button @click="setPage('activities'); mobileMenuOpen = false" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-800 hover:bg-earth-100">Activities & Stays</button>
-      <button @click="setPage('calendar'); mobileMenuOpen = false" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-800 hover:bg-earth-100">Seasonal Calendar</button>
-      <button @click="setPage('location'); mobileMenuOpen = false" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-800 hover:bg-earth-100">Trail Map</button>
-      <button @click="setPage('why-us'); mobileMenuOpen = false" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-800 hover:bg-earth-100">Why Choose Us</button>
-      <button @click="setPage('contact'); mobileMenuOpen = false" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-800 hover:bg-earth-100">Contact</button>
+    <div x-show="mobileMenuOpen" x-cloak @click.outside="mobileMenuOpen = false" class="lg:hidden bg-cream border-b border-earth-200 px-4 pt-2 pb-6 space-y-1 shadow-lg">
+      <button @click="setPage('home'); mobileMenuOpen = false" :class="currentPage === 'home' ? 'bg-forest-100 text-forest-800 font-semibold' : 'text-slate-800 hover:bg-earth-100'" class="block w-full text-left px-4 py-3 rounded-xl text-base font-medium">Home</button>
+      <button @click="setPage('vision'); mobileMenuOpen = false" :class="currentPage === 'vision' ? 'bg-forest-100 text-forest-800 font-semibold' : 'text-slate-800 hover:bg-earth-100'" class="block w-full text-left px-4 py-3 rounded-xl text-base font-medium">Vision & Pillars</button>
+      <button @click="setPage('activities'); mobileMenuOpen = false" :class="currentPage === 'activities' ? 'bg-forest-100 text-forest-800 font-semibold' : 'text-slate-800 hover:bg-earth-100'" class="block w-full text-left px-4 py-3 rounded-xl text-base font-medium">Activities & Stays</button>
+      <button @click="setPage('calendar'); mobileMenuOpen = false" :class="currentPage === 'calendar' ? 'bg-forest-100 text-forest-800 font-semibold' : 'text-slate-800 hover:bg-earth-100'" class="block w-full text-left px-4 py-3 rounded-xl text-base font-medium">Seasonal Calendar</button>
+      <button @click="setPage('location'); mobileMenuOpen = false" :class="currentPage === 'location' ? 'bg-forest-100 text-forest-800 font-semibold' : 'text-slate-800 hover:bg-earth-100'" class="block w-full text-left px-4 py-3 rounded-xl text-base font-medium">Trail Map</button>
+      <button @click="setPage('why-us'); mobileMenuOpen = false" :class="currentPage === 'why-us' ? 'bg-forest-100 text-forest-800 font-semibold' : 'text-slate-800 hover:bg-earth-100'" class="block w-full text-left px-4 py-3 rounded-xl text-base font-medium">Why Choose Us</button>
+      <button @click="setPage('contact'); mobileMenuOpen = false" :class="currentPage === 'contact' ? 'bg-forest-100 text-forest-800 font-semibold' : 'text-slate-800 hover:bg-earth-100'" class="block w-full text-left px-4 py-3 rounded-xl text-base font-medium">Contact</button>
     </div>
   </header>
 
@@ -134,34 +165,37 @@
       <div class="absolute inset-0 z-0">
         <img src="images/hero-valley.jpg" 
              alt="Khumbu Himalayan terraced valley" 
-             class="w-full h-full object-cover opacity-40 filter saturate-90">
-        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-slate-900/40"></div>
+             class="w-full h-full object-cover object-center" style="filter: brightness(0.8) saturate(1.05) contrast(1.05);">
+        <!-- Soft scrim: keeps the photo bright while giving the text a calm backdrop -->
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-slate-900/80"></div>
+        <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, rgba(15,23,42,0.55) 0%, rgba(15,23,42,0.25) 55%, transparent 80%);"></div>
       </div>
 
       <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+        
 
-        <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-cream mb-4 leading-tight drop-shadow-sm">
+        <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-4 leading-tight" style="text-shadow: 0 2px 4px rgba(0,0,0,0.45), 0 4px 24px rgba(0,0,0,0.45);">
           Khumbu Agro Tourism
         </h1>
         
-        <p class="font-serif text-xl sm:text-2xl lg:text-3xl font-medium tracking-normal text-earth-200 mb-8 italic">
+        <p class="font-serif text-xl sm:text-2xl lg:text-3xl font-medium tracking-normal text-amber-100 mb-8 italic" style="text-shadow: 0 2px 10px rgba(0,0,0,0.6);">
           The Himalayas Beyond the Trail
         </p>
         
-        <p class="max-w-3xl mx-auto text-base sm:text-lg text-slate-300 font-light mb-8 leading-relaxed">
-          Along the famous trail between Lukla and Namche Bazar lies Monjo — a village offering a quieter, deeper way to experience the Everest region through its terraced farms, seasonal food, culture, and community life.
+        <p class="max-w-3xl mx-auto text-base sm:text-lg text-white font-normal mb-8 leading-relaxed" style="text-shadow: 0 1px 3px rgba(0,0,0,0.7), 0 2px 12px rgba(0,0,0,0.5);">
+          Along the trail between Lukla and Namche Bazaar lies Monjo — offering a quieter, deeper way to experience the Everest region through its terraced farms, seasonal food, culture, and community life.
         </p>
 
-        <p class="max-w-2xl mx-auto text-sm sm:text-base text-earth-100/90 font-light mb-10 leading-relaxed italic border-y border-earth-600/30 py-3">
+        <p class="max-w-2xl mx-auto text-sm sm:text-base text-white/95 font-normal mb-10 leading-relaxed italic rounded-2xl bg-slate-900/35 backdrop-blur-sm border border-white/20 px-6 py-4" style="text-shadow: 0 1px 4px rgba(0,0,0,0.6);">
           "Here, agriculture is not something to merely observe. It is something to take part in — a way to connect with the land and experience the rhythm of Himalayan life."
         </p>
         
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <button @click="setPage('activities')" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-earth-600 text-cream font-medium hover:bg-earth-500 transition shadow-lg flex items-center justify-center gap-2">
+          <button @click="setPage('activities')" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-forest-600 text-cream font-medium hover:bg-forest-500 transition shadow-lg flex items-center justify-center gap-2">
             <span>Explore Activities & Stays</span>
             <i data-lucide="compass" class="w-4 h-4"></i>
           </button>
-          <button @click="setPage('calendar')" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-slate-800/80 hover:bg-slate-800 text-slate-200 border border-slate-700 font-medium transition backdrop-blur-sm flex items-center justify-center gap-2">
+          <button @click="setPage('calendar')" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white/15 hover:bg-white/25 text-white border border-white/50 font-medium transition backdrop-blur-md flex items-center justify-center gap-2">
             <span>Seasonal Harvest Calendar</span>
             <i data-lucide="calendar" class="w-4 h-4"></i>
           </button>
@@ -169,23 +203,33 @@
       </div>
     </section>
 
-    <!-- Visual Highlights Grid -->
-    <section class="py-12 bg-cream border-b border-earth-200/70">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          
-        </div>
+    <!-- Overview Statement Section -->
+    <section class="py-20 bg-mist bg-pattern border-b border-forest-100">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <span class="text-xs uppercase tracking-widest text-forest-700 font-bold">Discover A Different Side of the Himalayas</span>
+        <h2 class="font-serif text-3xl sm:text-4xl text-slate-900 font-bold mt-2 mb-6">Authentic Agro-Tourism & Nature-Based Wellness</h2>
+        <p class="text-slate-700 text-base sm:text-lg leading-relaxed">
+          Walk through working farms, learn high-altitude permaculture, harvest seasonal produce, and enjoy fresh farm-to-table meals — a way to explore the Himalayas beyond trekking and sightseeing.
+        </p>
       </div>
     </section>
 
-    <!-- Overview Statement Section -->
-    <section class="py-20 bg-cream bg-pattern border-b border-earth-200/70">
+    <!-- Five Pillars teaser (full detail lives on the Vision & Pillars page) -->
+    <section class="py-20 bg-white border-b border-earth-200/70">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <span class="text-xs uppercase tracking-widest text-earth-700 font-bold">Discover A Different Side of the Himalayas</span>
-        <h2 class="font-serif text-3xl sm:text-4xl text-slate-900 font-bold mt-2 mb-6">Authentic Agro-Tourism & Nature-Based Wellness</h2>
-        <p class="text-slate-700 text-base sm:text-lg leading-relaxed">
-          Khumbu Agro Tourism blends authentic agro-tourism with nature-based wellness, inviting travelers to explore the Himalayas beyond trekking and sightseeing. Walk through working farms. Harvest seasonal produce. Enjoy fresh, farm-to-table meals. Wander through forests and villages. Breathe the clean mountain air — and simply slow down.
-        </p>
+        <h2 class="font-serif text-3xl sm:text-4xl text-slate-900 font-bold mb-8">Built on Five Pillars</h2>
+        <div class="flex flex-wrap justify-center gap-3 mb-8">
+          <template x-for="pillar in pillars" :key="pillar.id">
+            <div class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-forest-50 border border-forest-200 text-forest-800 font-semibold text-sm shadow-sm">
+              <i :data-lucide="pillar.icon" class="w-4 h-4 text-forest-700"></i>
+              <span x-text="pillar.title"></span>
+            </div>
+          </template>
+        </div>
+        <button @click="setPage('vision')" class="text-forest-700 font-semibold text-sm hover:text-forest-800 inline-flex items-center gap-1 group">
+          <span>Explore Our Vision</span>
+          <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+        </button>
       </div>
     </section>
 
@@ -194,10 +238,10 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <div>
-            <span class="text-xs uppercase tracking-widest text-earth-700 font-bold">Participate & Immerse</span>
+            <span class="text-xs uppercase tracking-widest text-forest-700 font-bold">Participate & Immerse</span>
             <h2 class="font-serif text-3xl sm:text-4xl text-slate-900 font-bold mt-1">Activities & Himalayan Stays</h2>
           </div>
-          <button @click="setPage('activities')" class="mt-4 md:mt-0 text-earth-700 font-semibold text-sm hover:text-earth-800 flex items-center gap-1 group">
+          <button @click="setPage('activities')" class="mt-4 md:mt-0 text-forest-700 font-semibold text-sm hover:text-forest-800 flex items-center gap-1 group">
             <span>View All Offerings</span>
             <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
           </button>
@@ -206,9 +250,12 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <template x-for="activity in activities.slice(0, 3)" :key="activity.id">
             <div class="rounded-2xl border border-earth-200 bg-white overflow-hidden flex flex-col group shadow-sm hover:shadow-md transition">
-              <div class="h-56 overflow-hidden relative bg-earth-100">
-                <img :src="activity.image" :alt="activity.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <span class="absolute top-4 right-4 bg-slate-900/80 backdrop-blur-md text-white text-xs font-semibold px-3 py-1 rounded-full" x-text="activity.category"></span>
+              <div class="aspect-[16/10] overflow-hidden relative bg-earth-100">
+                <button type="button" @click="openLightbox(activity)" :aria-label="'View larger image: ' + activity.title"
+                        class="block w-full h-full cursor-zoom-in focus:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-forest-500">
+                  <img :src="activity.thumb" :alt="activity.title" width="800" height="500" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <span class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-slate-900/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity" aria-hidden="true"><i data-lucide="maximize-2" class="w-4 h-4"></i></span>
+                </button>
               </div>
               <div class="p-6 flex-1 flex flex-col justify-between">
                 <div>
@@ -223,30 +270,43 @@
     </section>
 
     <!-- Invitation CTA Banner -->
-    <section class="py-20 bg-slate-900 text-cream">
+    <section class="py-20 bg-gradient-to-br from-brand-900 via-slate-900 to-forest-800 text-cream">
       <div class="max-w-4xl mx-auto px-4 text-center">
-        <span class="text-xs uppercase tracking-widest text-earth-400 font-bold">Our Invitation</span>
-        <h2 class="font-serif text-3xl sm:text-4xl font-bold mt-2 mb-4">A Quiet, Deeper Way to Experience the Everest Region</h2>
-        <p class="text-slate-300 mb-8 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
-          Whether you are an individual traveler seeking an authentic farm stay, a trekking agency looking for distinctive cultural offerings, or an organization interested in sustainable mountain agriculture — we welcome you to Monjo.
-        </p>
-        <button @click="setPage('contact')" class="px-8 py-3.5 rounded-full bg-earth-600 text-cream font-medium hover:bg-earth-500 transition shadow">
+        <span class="text-xs uppercase tracking-widest text-amber-200 font-bold">Our Invitation</span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold mt-2 mb-8">A Quiet, Deeper Way to Experience the Everest Region</h2>
+        <button @click="setPage('contact')" class="px-8 py-3.5 rounded-full bg-forest-600 text-cream font-medium hover:bg-forest-500 transition shadow">
           Connect With Us
         </button>
       </div>
     </section>
   </main>
 
+  <!-- ==================== PAGE: VISION & PILLARS ==================== -->
+  <section x-show="currentPage === 'vision'" x-cloak class="py-20 bg-mist flex-grow">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h1 class="font-serif text-4xl sm:text-5xl text-slate-900 font-bold mb-6">Our Vision</h1>
+        <div class="p-8 rounded-2xl bg-white border border-forest-100 border-l-4 border-l-forest-600 text-slate-800 text-base sm:text-lg leading-relaxed font-serif italic shadow-sm">
+          "To establish Khumbu as a distinctive destination for sustainable agro-tourism and nature-based wellness — creating meaningful experiences for visitors while supporting local farmers, strengthening community livelihoods, preserving traditional knowledge, and caring for the Himalayan environment."
+        </div>
+      </div>
+
+      <div class="mb-16">
+        <div class="text-center mb-12">
+          <h2 class="font-serif text-3xl font-bold text-slate-900">The Five Pillars of the Khumbu Experience</h2>
+        </div>
+
         <div class="space-y-8">
           <template x-for="pillar in pillars" :key="pillar.id">
             <div class="p-8 rounded-2xl bg-white border border-earth-200 shadow-sm flex flex-col md:flex-row gap-6 items-start md:items-center">
-              <div class="w-16 h-16 rounded-2xl bg-earth-100 text-earth-700 flex items-center justify-center shrink-0">
+              <div class="w-16 h-16 rounded-2xl bg-forest-100 text-forest-700 flex items-center justify-center shrink-0">
                 <i :data-lucide="pillar.icon" class="w-8 h-8"></i>
               </div>
               <div class="flex-1">
                 <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-1">
                   <h3 class="font-serif text-2xl font-bold text-slate-900" x-text="pillar.title"></h3>
-                  <span class="text-xs font-semibold uppercase tracking-wider text-earth-600 sm:before:content-['•'] sm:before:mr-2" x-text="pillar.subtitle"></span>
+                  <span class="text-xs font-semibold uppercase tracking-wider text-forest-600 sm:before:content-['•'] sm:before:mr-2" x-text="pillar.subtitle"></span>
                 </div>
                 <p class="text-slate-600 text-sm sm:text-base leading-relaxed" x-text="pillar.description"></p>
               </div>
@@ -262,19 +322,21 @@
   <section x-show="currentPage === 'activities'" x-cloak class="py-20 bg-cream flex-grow">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-12">
-        <span class="text-xs uppercase tracking-widest text-earth-700 font-bold">Curated Experiences</span>
-        <h1 class="font-serif text-4xl sm:text-5xl text-slate-900 font-bold mt-2 mb-4">Activities & Himalayan Stays</h1>
+        <h1 class="font-serif text-4xl sm:text-5xl text-slate-900 font-bold mb-4">Activities & Himalayan Stays</h1>
         <p class="text-slate-600 text-base leading-relaxed">
-          Explore the Himalayas through authentic farming, farm-to-table dining, and peaceful mountain stays in Monjo.
+          Explore the Himalayas through authentic farming, farm-to-table dining, local markets, and peaceful mountain stays in Monjo.
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <template x-for="activity in activities" :key="activity.id">
           <div class="bg-white rounded-2xl border border-earth-200 overflow-hidden flex flex-col shadow-sm hover:shadow-md transition">
-            <div class="h-56 overflow-hidden relative bg-earth-100">
-              <img :src="activity.image" :alt="activity.title" class="h-full w-full object-cover">
-              <span class="absolute top-3 right-3 bg-slate-900/80 backdrop-blur-md text-white text-[11px] font-semibold px-2.5 py-0.5 rounded-full" x-text="activity.category"></span>
+            <div class="group aspect-[16/10] overflow-hidden relative bg-earth-100">
+              <button type="button" @click="openLightbox(activity)" :aria-label="'View larger image: ' + activity.title"
+                      class="block w-full h-full cursor-zoom-in focus:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-forest-500">
+                <img :src="activity.thumb" :alt="activity.title" width="800" height="500" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <span class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-slate-900/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true"><i data-lucide="maximize-2" class="w-4 h-4"></i></span>
+              </button>
             </div>
             <div class="p-6 flex-1 flex flex-col justify-between">
               <div>
@@ -292,7 +354,7 @@
   <section x-show="currentPage === 'calendar'" x-cloak class="py-20 bg-white flex-grow">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-12">
-        <span class="text-xs uppercase tracking-widest text-earth-700 font-bold">Rhythms of the Land</span>
+        <span class="text-xs uppercase tracking-widest text-forest-700 font-bold">Rhythms of the Land</span>
         <h1 class="font-serif text-4xl sm:text-5xl text-slate-900 font-bold mt-2 mb-4">Seasonal Harvest & Farming Calendar</h1>
         <p class="text-slate-600 text-base">
           High-altitude permaculture follows the mountain seasons closely. Select a season to discover what is growing, blooming, and being harvested in Monjo.
@@ -303,11 +365,10 @@
       <div class="flex justify-center gap-3 mb-12 flex-wrap">
         <template x-for="s in seasons" :key="s.id">
           <button @click="activeSeason = s.id" 
-                  :class="activeSeason === s.id ? 'bg-slate-900 text-white shadow' : 'bg-earth-50 text-slate-700 border border-earth-200 hover:bg-earth-100'" 
+                  :class="activeSeason === s.id ? 'bg-forest-700 text-white shadow' : 'bg-earth-50 text-slate-700 border border-earth-200 hover:bg-forest-50 hover:border-forest-200'" 
                   class="px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition flex items-center gap-2">
             <i :data-lucide="s.icon" class="w-4 h-4"></i>
             <span x-text="s.name"></span>
-            <span class="text-[11px] opacity-80" x-text="'(' + s.months + ')'"></span>
           </button>
         </template>
       </div>
@@ -318,18 +379,18 @@
           <div x-show="activeSeason === s.id" class="space-y-8">
             <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-earth-200 pb-6 gap-4">
               <div>
-                <span class="text-xs font-bold uppercase tracking-wider text-earth-600" x-text="s.months"></span>
+                <span class="text-xs font-bold uppercase tracking-wider text-forest-600" x-text="s.months"></span>
                 <h2 class="font-serif text-3xl font-bold text-slate-900 mt-1" x-text="s.headline"></h2>
               </div>
               <div class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-earth-200 text-xs font-semibold text-slate-700">
-                <i data-lucide="thermometer-snowflake" class="w-4 h-4 text-earth-600"></i>
+                <i data-lucide="thermometer-snowflake" class="w-4 h-4 text-forest-600"></i>
                 <span x-text="s.climate"></span>
               </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div class="p-6 rounded-xl bg-white border border-earth-200">
-                <div class="flex items-center gap-2 text-earth-700 font-bold text-xs uppercase mb-3">
+                <div class="flex items-center gap-2 text-forest-700 font-bold text-xs uppercase mb-3">
                   <i data-lucide="sprout" class="w-4 h-4"></i>
                   <span>Field & Greenhouse Crops</span>
                 </div>
@@ -337,7 +398,15 @@
               </div>
 
               <div class="p-6 rounded-xl bg-white border border-earth-200">
-                <div class="flex items-center gap-2 text-earth-700 font-bold text-xs uppercase mb-3">
+                <div class="flex items-center gap-2 text-forest-700 font-bold text-xs uppercase mb-3">
+                  <i data-lucide="utensils" class="w-4 h-4"></i>
+                  <span>Kitchen & Table Highlights</span>
+                </div>
+                <p class="text-slate-600 text-sm leading-relaxed" x-text="s.cuisine"></p>
+              </div>
+
+              <div class="p-6 rounded-xl bg-white border border-earth-200">
+                <div class="flex items-center gap-2 text-forest-700 font-bold text-xs uppercase mb-3">
                   <i data-lucide="hand" class="w-4 h-4"></i>
                   <span>Visitor Hands-On Activities</span>
                 </div>
@@ -352,10 +421,10 @@
   </section>
 
   <!-- ==================== PAGE: INTERACTIVE TRAIL MAP ==================== -->
-  <section x-show="currentPage === 'location'" x-cloak class="py-20 bg-cream flex-grow">
+  <section x-show="currentPage === 'location'" x-cloak class="py-20 bg-mist flex-grow">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-12">
-        <span class="text-xs uppercase tracking-widest text-earth-700 font-bold">Geography & Context</span>
+        <span class="text-xs uppercase tracking-widest text-forest-700 font-bold">Geography & Context</span>
         <h1 class="font-serif text-4xl sm:text-5xl text-slate-900 font-bold mt-2 mb-4">Monjo on the Everest Trail</h1>
         <p class="text-slate-600 text-base">
           Monjo (2,835 m) sits directly at the entrance gate of the Sagarmatha National Park Buffer Zone, between Lukla and Namche Bazaar along the Dudh Koshi River.
@@ -370,7 +439,7 @@
             <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-600 inline-block"></span> Monjo (Buffer Zone Hub)</span>
             <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-amber-600 inline-block"></span> Key Trail Hubs</span>
           </div>
-          <span>Coordinates: 27.7719° N, 86.7214° E • Elevation: 2,835 m</span>
+          <span>Coordinates: 27.7719° N, 86.7214° E</span>
         </div>
       </div>
 
@@ -396,7 +465,7 @@
   <section x-show="currentPage === 'why-us'" x-cloak class="py-20 bg-white flex-grow">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-xs uppercase tracking-widest text-earth-700 font-bold">Distinctive Values</span>
+        <span class="text-xs uppercase tracking-widest text-forest-700 font-bold">Distinctive Values</span>
         <h1 class="font-serif text-4xl sm:text-5xl text-slate-900 font-bold mt-2 mb-4">Why Choose Us?</h1>
         <p class="text-slate-600 text-base">
           Connecting you directly with the land, heritage, and people of the Sagarmatha National Park Buffer Zone.
@@ -405,8 +474,8 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <template x-for="item in whyChooseReasons" :key="item.id">
-          <div class="p-6 sm:p-8 rounded-2xl bg-cream border border-earth-200 flex gap-4 items-start shadow-sm">
-            <div class="w-10 h-10 rounded-xl bg-earth-600 text-white flex items-center justify-center shrink-0 mt-1">
+          <div class="p-6 sm:p-8 rounded-2xl bg-cream border border-earth-200 flex gap-4 items-start shadow-sm md:last:col-span-2">
+            <div class="w-10 h-10 rounded-xl bg-forest-600 text-white flex items-center justify-center shrink-0 mt-1">
               <i :data-lucide="item.icon" class="w-5 h-5"></i>
             </div>
             <div>
@@ -420,14 +489,14 @@
   </section>
 
   <!-- ==================== PAGE: CONTACT / INVITATION ==================== -->
-  <section x-show="currentPage === 'contact'" x-cloak class="py-20 bg-cream flex-grow">
+  <section x-show="currentPage === 'contact'" x-cloak class="py-20 bg-mist flex-grow">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-2xl mx-auto mb-12">
-        <span class="text-xs uppercase tracking-widest text-earth-700 font-bold">Connect & Collaborate</span>
+        <span class="text-xs uppercase tracking-widest text-forest-700 font-bold">Connect & Collaborate</span>
         <h1 class="font-serif text-4xl font-bold text-slate-900 mt-2 mb-4">Our Invitation</h1>
         <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
-          Whether you are an individual traveler or family seeking an authentic farm experience, a trekking agency or tour operator looking for distinctive cultural offerings, or an organization interested in community-based development — we welcome you to Khumbu Agro Tourism.
+          Whether you are an individual traveler seeking an authentic farm experience, a trekking agency looking for distinctive cultural itineraries, or an organization interested in sustainable mountain agriculture — we welcome you to Monjo.
         </p>
       </div>
 
@@ -435,76 +504,101 @@
       <!-- Direct Contact Details Bar -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
         <div class="p-6 bg-white rounded-xl border border-earth-200">
-          <i data-lucide="map-pin" class="w-5 h-5 text-earth-600 mx-auto mb-2"></i>
+          <i data-lucide="map-pin" class="w-5 h-5 text-forest-600 mx-auto mb-2"></i>
           <span class="text-xs uppercase font-bold text-slate-900 block mb-1">Location</span>
-          <span class="text-xs text-slate-600">Monjo, Solukhumbu, Nepal<br>Sagarmatha National Park Buffer Zone</span>
+          <span class="text-xs text-slate-600">Monjo, Solukhumbu, Nepal<br>Sagarmatha NP Buffer Zone</span>
         </div>
         <div class="p-6 bg-white rounded-xl border border-earth-200">
-          <i data-lucide="mail" class="w-5 h-5 text-earth-600 mx-auto mb-2"></i>
+          <i data-lucide="mail" class="w-5 h-5 text-forest-600 mx-auto mb-2"></i>
           <span class="text-xs uppercase font-bold text-slate-900 block mb-1">Email</span>
-          <a href="mailto:phinjosherpa@gmail.com" class="text-xs text-earth-700 hover:underline">phinjosherpa@gmail.com</a>
-          <a href="mailto:namche@gmail.com" class="text-xs text-earth-700 hover:underline">namche@gmail.com</a>
-
+          <a href="mailto:phinjosherpa@gmail.com" class="text-xs text-forest-700 hover:underline block">phinjosherpa@gmail.com</a>
+          <a href="mailto:namche@gmail.com" class="text-xs text-forest-700 hover:underline block">namche@gmail.com</a>
         </div>
         <div class="p-6 bg-white rounded-xl border border-earth-200">
-          <i data-lucide="globe" class="w-5 h-5 text-earth-600 mx-auto mb-2"></i>
+          <i data-lucide="globe" class="w-5 h-5 text-forest-600 mx-auto mb-2"></i>
           <span class="text-xs uppercase font-bold text-slate-900 block mb-1">Online</span>
-          <span class="text-xs text-slate-600 block">www.khumbuagrotourism.com.np</span>
-          <span class="text-xs text-earth-700">@KhumbuAgroTourism</span>
+          <a href="https://khumbuagrotourism.com.np" target="_blank" rel="noopener" class="text-xs text-forest-700 hover:underline">khumbuagrotourism.com.np</a>
         </div>
       </div>
 
     </div>
   </section>
 
+  <!-- ==================== BACK TO TOP ==================== -->
+  <button x-data="{ show: false }" @scroll.window="show = window.scrollY > 600" x-show="show" x-cloak
+          x-transition.opacity.duration.200ms
+          @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
+          aria-label="Back to top"
+          class="fixed bottom-5 right-5 z-30 w-11 h-11 rounded-full bg-forest-600 hover:bg-forest-700 text-white shadow-lg flex items-center justify-center transition">
+    <i data-lucide="arrow-up" class="w-5 h-5"></i>
+  </button>
+
+  <!-- ==================== IMAGE LIGHTBOX ==================== -->
+  <div x-show="lightbox.open" x-cloak
+       x-transition.opacity.duration.200ms
+       x-trap.noscroll="lightbox.open"
+       @keydown.escape.window="closeLightbox()"
+       @click.self="closeLightbox()"
+       role="dialog" aria-modal="true" :aria-label="lightbox.title"
+       class="fixed inset-0 z-[60] bg-slate-950/90 backdrop-blur-sm flex flex-col items-center justify-center p-4 sm:p-8">
+    <button type="button" @click="closeLightbox()" aria-label="Close image"
+            class="absolute top-3 right-3 sm:top-5 sm:right-5 w-11 h-11 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
+      <i data-lucide="x" class="w-6 h-6"></i>
+    </button>
+    <figure class="flex flex-col items-center max-w-full">
+      <img :src="lightbox.src" :alt="lightbox.title"
+           class="max-w-full max-h-[78vh] sm:max-h-[84vh] w-auto h-auto object-contain rounded-lg shadow-2xl bg-slate-900">
+      <figcaption class="mt-3 text-white/90 text-sm sm:text-base text-center font-serif" x-text="lightbox.title"></figcaption>
+    </figure>
+  </div>
 
   <!-- ==================== FOOTER ==================== -->
   <footer class="bg-slate-900 text-slate-300 border-t border-slate-800 mt-auto">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
         
         <div class="md:col-span-1">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-8 h-8 rounded bg-earth-600 text-white flex items-center justify-center font-serif font-bold">K</div>
+            <div class="w-8 h-8 rounded bg-forest-600 text-white flex items-center justify-center font-serif font-bold">K</div>
             <span class="font-serif text-lg font-bold text-white">Khumbu Agro</span>
           </div>
           <p class="text-xs text-slate-400 leading-relaxed mb-4">
             Authentic agro-tourism, high-altitude regenerative farming, and nature-based wellness in the Everest highlands.
           </p>
-          <div class="text-xs text-earth-400 font-mono">Monjo, Solukhumbu, Nepal<br> Sagarmatha National Park Buffer Zone</div>
+          <div class="text-xs text-amber-200 font-mono">Monjo, Solukhumbu, Nepal<br>2,835 m • Sagarmatha Buffer Zone</div>
         </div>
 
         <div>
           <h4 class="text-xs uppercase tracking-widest font-bold text-white mb-4">Explore</h4>
           <ul class="space-y-2 text-xs">
-            <li><button @click="setPage('home')" class="hover:text-earth-300 transition">Home Overview</button></li>
-            <li><button @click="setPage('activities')" class="hover:text-earth-300 transition">Activities & Farm Stays</button></li>
-            <li><button @click="setPage('calendar')" class="hover:text-earth-300 transition">Seasonal Calendar</button></li>
-            <li><button @click="setPage('location')" class="hover:text-earth-300 transition">Trail Map & Geography</button></li>
-            <li><button @click="setPage('why-us')" class="hover:text-earth-300 transition">Why Choose Us</button></li>
-            <li><button @click="setPage('contact')" class="hover:text-earth-300 transition">Contact & Invitation</button></li>
+            <li><button @click="setPage('home')" class="hover:text-amber-200 transition">Home Overview</button></li>
+            <li><button @click="setPage('vision')" class="hover:text-amber-200 transition">Vision & Five Pillars</button></li>
+            <li><button @click="setPage('activities')" class="hover:text-amber-200 transition">Activities & Farm Stays</button></li>
+            <li><button @click="setPage('calendar')" class="hover:text-amber-200 transition">Seasonal Calendar</button></li>
+            <li><button @click="setPage('location')" class="hover:text-amber-200 transition">Trail Map & Geography</button></li>
+            <li><button @click="setPage('why-us')" class="hover:text-amber-200 transition">Why Choose Us</button></li>
+            <li><button @click="setPage('contact')" class="hover:text-amber-200 transition">Contact & Invitation</button></li>
           </ul>
         </div>
 
+
         <div>
           <h4 class="text-xs uppercase tracking-widest font-bold text-white mb-4">Contact & Inquiries</h4>
-          <p class="text-xs text-slate-400 mb-1"><strong>Email:</strong> <a href="mailto:phinjosherpa@gmail.com" class="text-earth-300 hover:underline">phinjosherpa@gmail.com</a></p>
-          <p class="text-xs text-slate-400 mb-1"><strong>Email:</strong> <a href="mailto:namche@gmail.com" class="text-earth-300 hover:underline">namche@gmail.com</a></p>
-          <p class="text-xs text-slate-400 mb-1"><strong>Web:</strong> www.khumbuagrotourism.com.np</p>
-          <p class="text-xs text-slate-400 mb-4"><strong>Social:</strong> @KhumbuAgroTourism</p>
-          <button @click="setPage('contact')" class="w-full py-2 rounded bg-earth-600 hover:bg-earth-500 text-white text-xs font-semibold">
+          <p class="text-xs text-slate-400 mb-1"><strong>Email:</strong> <a href="mailto:phinjosherpa@gmail.com" class="text-amber-200 hover:underline">phinjosherpa@gmail.com</a></p>
+          <p class="text-xs text-slate-400 mb-1 pl-[2.9rem]"><a href="mailto:namche@gmail.com" class="text-amber-200 hover:underline">namche@gmail.com</a></p>
+          <p class="text-xs text-slate-400 mb-4"><strong>Web:</strong> <a href="https://khumbuagrotourism.com.np" target="_blank" rel="noopener" class="text-amber-200 hover:underline">khumbuagrotourism.com.np</a></p>
+          <button @click="setPage('contact')" class="w-full py-2 rounded bg-forest-600 hover:bg-forest-500 text-white text-xs font-semibold">
             Inquire Now
           </button>
         </div>
       </div>
 
       <div class="mt-12 pt-8 border-t border-slate-800 text-center flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
-        <div>&copy; 2026 Khumbu Agro Tourism.</div>
+        <div>&copy; 2026 Khumbu Agro Tourism. All rights reserved. Monjo, Solukhumbu, Nepal.</div>
         <div class="flex gap-6 mt-4 sm:mt-0">
-          <span class="hover:text-slate-300">Nature-Based Wellness & Recreation</span>
-          <span class="hover:text-slate-300">For a memorable & meaningful Himalayan experience</span>
-          <span class="hover:text-slate-300">Where Farming, Food, Nature & Well-Being Come Together</span>
-          <span class="hover:text-slate-300">Let's share the beauty and value of Khumbu together!</span>
+          <span class="hover:text-slate-300">Sagarmatha Buffer Zone Initiative</span>
+          <span class="hover:text-slate-300">Regenerative Mountain Farming</span>
+          <span class="hover:text-slate-300">Leave No Trace</span>
         </div>
       </div>
     </div>
@@ -516,65 +610,101 @@
       return {
         currentPage: 'home',
         mobileMenuOpen: false,
-        bookingModalOpen: false,
-        selectedTour: 'Farm Walks & Agricultural Discovery',
         activeSeason: 'spring',
-        formSubmitted: false,
-        bookingSubmitted: false,
-        isSubmitting: false,
         mapInitialized: false,
         mapInstance: null,
+        lightbox: { open: false, src: '', title: '' },
 
-        contactForm: {
-          name: '',
-          email: '',
-          type: 'Individual Traveler / Family',
-          season: '',
-          message: ''
-        },
+        pillars: [
+          {
+            id: 'farm',
+            title: 'Farm',
+            subtitle: 'Cultivate & Learn',
+            icon: 'sprout',
+            tagline: 'High-Altitude Permaculture • Generational Knowledge',
+            description: 'Discover organic and traditional high-altitude farming through guided farm walks and seasonal, hands-on activities. Learn how mountain communities cultivate crops, tend livestock, grow medicinal herbs, and work with the land using knowledge passed down through generations.'
+          },
+          {
+            id: 'food',
+            title: 'Food',
+            subtitle: 'Taste & Share',
+            icon: 'utensils',
+            tagline: 'Local Harvest • Wholesome Cooking',
+            description: 'Taste the authentic flavors of the Himalayas through fresh, locally grown ingredients and traditional cuisine. Enjoy wholesome farm-to-table meals and take part in hands-on cooking experiences.'
+          },
+          {
+            id: 'nature',
+            title: 'Nature',
+            subtitle: 'Explore & Breathe',
+            icon: 'trees',
+            tagline: 'Clean Mountain Air • Native Flora & Fauna',
+            description: 'Explore forests, farmland, streams, and mountain landscapes at a relaxed pace. Guided nature walks reveal native plants and herbs, local wildlife, and spectacular photography opportunities — all in the clean Himalayan air.'
+          },
+          {
+            id: 'culture',
+            title: 'Culture',
+            subtitle: 'Meet & Understand',
+            icon: 'users',
+            tagline: 'Sherpa Heritage • Sacred Traditions',
+            description: 'Engage with living Sherpa heritage through village architecture, sacred traditions, and shared stories — fostering mutual respect and authentic cross-cultural connection.'
+          },
+          {
+            id: 'well-being',
+            title: 'Well-Being',
+            subtitle: 'Slow Down, Move, Nourish, Reflect',
+            icon: 'heart-pulse',
+            tagline: 'Gentle Movement • Wholesome Peace',
+            description: 'Experience the natural benefits of mountain life: gentle outdoor activity, wholesome food, fresh air, peaceful surroundings, and distance from the pressures of everyday life.'
+          }
+        ],
 
-        bookingForm: {
-          name: '',
-          email: '',
-          guests: 1,
-          date: ''
-        },
-        
         activities: [
           {
             id: 'farm-walks',
             title: 'Farm Walks & Agricultural Discovery',
-            image: 'images/farm-walks.jpg',
+            category: 'Agriculture',
+            thumb: 'images/thumbs/farm-walks.jpg',
+            full: 'images/farm-walks.jpg',
             description: 'Explore high-altitude farms and learn about organic cultivation, traditional farming knowledge, and Himalayan herbs, crops, and livestock.'
           },
           {
             id: 'hands-on-farming',
             title: 'Hands-On Farming',
-            image: 'images/hands-on.jpg',
+            category: 'Hands-On',
+            thumb: 'images/thumbs/hands-on.jpg',
+            full: 'images/hands-on.jpg',
             description: 'Take part in seasonal work — planting, tending, harvesting, and caring for livestock and locally grown herbs and specialty crops.'
           },
           {
             id: 'farm-to-table',
             title: 'Farm-to-Table Dining',
-            image: 'images/farm-to-table.jpg',
+            category: 'Culinary',
+            thumb: 'images/thumbs/farm-to-table.jpg',
+            full: 'images/farm-to-table.jpg',
             description: 'Enjoy fresh, locally sourced meals prepared with traditional Himalayan knowledge, straight from farm to table.'
           },
           {
             id: 'village-culture',
             title: 'Village & Cultural Experiences',
-            image: 'images/culture-village.jpg',
+            category: 'Culture',
+            thumb: 'images/thumbs/culture-village.jpg',
+            full: 'images/culture-village.jpg',
             description: 'Discover Sherpa heritage through village walks, architecture, oral traditions, local cuisine, and genuine community interaction.'
           },
           {
             id: 'himalayan-stays',
             title: 'Himalayan Farm Stays',
-            image: 'images/farm-stay.jpg',
+            category: 'Accommodation',
+            thumb: 'images/thumbs/farm-stay.jpg',
+            full: 'images/farm-stay.jpg',
             description: 'Stay in comfortable, locally inspired farm cottages or low-impact campsites, and experience the peaceful rhythm of mountain living close to the fields.'
           },
           {
             id: 'artisan-market',
             title: 'Local Harvest & Artisan Market',
-            image: 'images/artisan-market.jpg',
+            category: 'Community Market',
+            thumb: 'images/thumbs/artisan-market.jpg',
+            full: 'images/artisan-market.jpg',
             description: 'Purchase seasonal organic produce, Himalayan herbs, spices, and handmade products — while directly supporting mountain farmers and local producers.'
           }
         ],
@@ -587,7 +717,8 @@
             icon: 'flower-2',
             headline: 'Sowing Seeds & Rhododendron Blooms',
             climate: 'Pleasant Days (12°C – 18°C), Cool Nights',
-            crops: 'Potatoes, Cruciferous Greens, Root Vegetables, Spinach & Swiss Chard, Green Garlic & Onions, Coriander & Himalayan Parsley, Wild Celery & Mountain Sorrel, Apples, Peaches, and Himalayan Strawberries & Wild Berries.',
+            crops: 'Potato planting (red & purple varieties), barley seedbed preparation, wild nettle shoots (Sisnu), and greenhouse garlic & spinach.',
+            cuisine: 'Spring stinging nettle soup (Sisnu jhol), wild garlic stir-fry, steamed buckwheat bread with churned yak butter.',
             activities: 'Terrace soil conditioning, seed-sowing masterclasses, wild herb identification walks through blooming lower forests.'
           },
           {
@@ -597,8 +728,9 @@
             icon: 'cloud-rain',
             headline: 'Lush Terraces & Bio-Diversity Growth',
             climate: 'Lush & Misty (15°C – 22°C), Afternoon Showers',
-            crops: 'Rapid vegetative growth of indigenous potatoes, Cruciferous Greens & Roots, Greenhouse & Poly-Tunnel Vegetables, Himalayan Raspberry, Stinging Nettle, wild mint, apples, Plums & Wild Peaches, and mountain legumes.',
-            activities: 'Compost preparation, agro-forestry tree nursery tending, high-altitude dairy observation.'
+            crops: 'Rapid vegetative growth of indigenous potatoes, leafy greens, wild mint, medicinal dandelion roots, and mountain legumes.',
+            cuisine: 'Fresh sautéed organic greens (Saag), artisan Chhurpi and soft cheese, hearty vegetable stews (Shakpa).',
+            activities: 'Compost preparation, agro-forestry tree nursery tending, rainwater management workshops, high-altitude dairy observation.'
           },
           {
             id: 'autumn',
@@ -607,8 +739,9 @@
             icon: 'sun',
             headline: 'Bumper Harvest & Crystal Mountain Views',
             climate: 'Crisp & Clear (10°C – 16°C), Sunny Skies',
-            crops: 'Highland potato harvest, Radishes (Mula) & Turnips (Salgam), Brassicas & Cold-Hardy Greens, Himalayan Barberry (Berberis spp. / Chutro), Alliums (Garlic, Mountain Chives & Green Onions), Highland Coriander & Celery, Appleas and Himalayan Barberry.',
-            activities: 'Hands-on potato harvesting festivals, winter vegetable greenhouse transplanting.'
+            crops: 'Major highland potato harvest, roasted Tsampa barley roasting, buckwheat threshing, seabuckthorn berry foraging.',
+            cuisine: 'Freshly grated Riki Kur (potato pancakes with somar cream), roasted tsampa porridge, freshly brewed hot seabuckthorn cider.',
+            activities: 'Hands-on potato harvesting festivals, barley milling at traditional watermills, winter vegetable greenhouse transplanting.'
           },
           {
             id: 'winter',
@@ -617,8 +750,9 @@
             icon: 'snowflake',
             headline: 'Solar Greenhouses & Heritage Storytelling',
             climate: 'Sunny Days (4°C – 10°C), Sub-zero Nights',
-            crops: 'Solar greenhouse microgreens, spinach, Garlic Shoots & Scapes, Mustard Greens, Winter Radish & Turnips, winter leeks, Coriander / Cilantro, root cellar curing of stored potatoes and dried alpine herbs.',
-            activities: 'Solar greenhouse insulation engineering, indoor hearth cooking classes.'
+            crops: 'Solar greenhouse microgreens, spinach, winter leeks, root cellar curing of stored potatoes and dried alpine herbs.',
+            cuisine: 'Slow-simmered Sherpa Thukpa, butter tea (Su-chya), roasted barley snacks, and fireside fermented dried greens (Gundruk).',
+            activities: 'Solar greenhouse insulation engineering, indoor hearth cooking classes, evening Sherpa oral history & cultural sessions.'
           }
         ],
 
@@ -627,13 +761,7 @@
             id: 'beyond-trekking',
             title: 'Go Beyond Trekking',
             icon: 'compass',
-            description: 'Discover a more intimate side of the Everest region through agriculture, food, and community.'
-          },
-          {
-            id: 'experience-observe',
-            title: 'Experience, Don’t Just Observe',
-            icon: 'hand',
-            description: 'Take part in farming, cooking, nature, and cultural activities firsthand — rather than simply observing.'
+            description: 'Discover a more intimate side of the Everest region by taking part in farming, food, culture, and community — not just observing.'
           },
           {
             id: 'reconnect-nature',
@@ -651,21 +779,23 @@
             id: 'discover-sherpa',
             title: 'Discover Sherpa Culture',
             icon: 'sparkles',
-            description: 'Learn from local people and gain a deeper appreciation for Sherpa traditions and ways of life.'
+            description: 'Learn directly from local people and gain a deeper appreciation for Sherpa traditions and ways of life.'
           },
           {
             id: 'support-communities',
-            title: 'Support Local Communities',
+            title: 'Support Communities, Travel Responsibly',
             icon: 'heart-handshake',
-            description: 'Your stay, meals, activities, and purchases directly benefit local farmers, producers, and service providers.'
-          },
-          {
-            id: 'travel-responsibly',
-            title: 'Travel Responsibly',
-            icon: 'shield-check',
-            description: 'Support community-based enterprises while encouraging the sustainable use of natural resources.'
+            description: 'Your stay, meals, and purchases directly benefit local farmers and producers, while encouraging the sustainable use of natural resources.'
           }
         ],
+
+        openLightbox(item) {
+          this.lightbox = { open: true, src: item.full, title: item.title };
+        },
+
+        closeLightbox() {
+          this.lightbox.open = false;
+        },
 
         setPage(page) {
           this.currentPage = page;
@@ -686,9 +816,30 @@
 
           this.mapInstance = L.map('trailMap').setView([27.7719, 86.7214], 12);
 
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          }).addTo(this.mapInstance);
+          // Base maps that load without a Referer header (OpenStreetMap's own tile
+          // servers return "Access blocked" when the page is opened from a local file).
+          const topoMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+            maxZoom: 17,
+            attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, USGS, NRCan, and the GIS User Community'
+          });
+          const streetMap = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            subdomains: 'abcd',
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+          });
+
+          topoMap.addTo(this.mapInstance);
+          L.control.layers({ 'Terrain': topoMap, 'Street': streetMap }, null, { position: 'topright' }).addTo(this.mapInstance);
+
+          // If the terrain tiles repeatedly fail to load, fall back to the street map automatically.
+          let tileErrors = 0;
+          topoMap.on('tileerror', () => {
+            tileErrors++;
+            if (tileErrors === 4 && this.mapInstance.hasLayer(topoMap)) {
+              this.mapInstance.removeLayer(topoMap);
+              streetMap.addTo(this.mapInstance);
+            }
+          });
 
           const monjoMarker = L.circleMarker([27.7719, 86.7214], {
             radius: 9,
@@ -727,39 +878,10 @@
             [27.7880, 86.7180],
             [27.8069, 86.7140]
           ];
-          L.polyline(trailRoute, { color: '#8c7851', weight: 4, dashArray: '6, 8' }).addTo(this.mapInstance);
+          L.polyline(trailRoute, { color: '#2c7a45', weight: 4, dashArray: '6, 8' }).addTo(this.mapInstance);
 
           this.mapInitialized = true;
           setTimeout(() => { this.mapInstance.invalidateSize(); }, 300);
-        },
-
-        openBooking(title) {
-          this.selectedTour = title;
-          this.bookingModalOpen = true;
-          this.bookingSubmitted = false;
-          document.body.classList.add('overflow-hidden');
-        },
-
-        closeBooking() {
-          this.bookingModalOpen = false;
-          this.bookingSubmitted = false;
-          document.body.classList.remove('overflow-hidden');
-        },
-
-        async submitContactForm() {
-          this.isSubmitting = true;
-          await new Promise(r => setTimeout(r, 800));
-          this.isSubmitting = false;
-          this.formSubmitted = true;
-          this.contactForm = { name: '', email: '', type: 'Individual Traveler / Family', season: '', message: '' };
-        },
-
-        async submitBookingForm() {
-          this.isSubmitting = true;
-          await new Promise(r => setTimeout(r, 800));
-          this.isSubmitting = false;
-          this.bookingSubmitted = true;
-          this.bookingForm = { name: '', email: '', guests: 1, date: '' };
         }
       }
     }
