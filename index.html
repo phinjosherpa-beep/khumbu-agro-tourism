@@ -388,35 +388,33 @@
               </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div class="p-6 rounded-xl bg-white border border-earth-200">
-                <div class="flex items-center gap-2 text-forest-700 font-bold text-xs uppercase mb-3">
-                  <i data-lucide="sprout" class="w-4 h-4"></i>
-                  <span>Field & Greenhouse Crops</span>
+            <div class="grid grid-cols-1 gap-6" :class="s.groups.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'">
+              <template x-for="g in s.groups" :key="g.title">
+                <div class="rounded-2xl bg-white border border-earth-200 overflow-hidden shadow-sm flex flex-col">
+                  <div class="flex items-center gap-3 px-5 py-4 bg-forest-50 border-b border-forest-100">
+                    <span class="w-10 h-10 shrink-0 rounded-xl bg-forest-600 text-white flex items-center justify-center"><i :data-lucide="g.icon" class="w-5 h-5"></i></span>
+                    <div class="min-w-0">
+                      <h3 class="font-serif text-lg font-bold text-slate-900 leading-tight" x-text="g.title"></h3>
+                      <p class="text-xs text-slate-500" x-text="g.note"></p>
+                    </div>
+                    <span class="ml-auto shrink-0 text-[11px] font-bold text-forest-700 bg-white border border-forest-200 rounded-full px-2.5 py-1" x-text="g.items.length"></span>
+                  </div>
+                  <ul class="p-5 flex flex-wrap gap-2">
+                    <template x-for="it in g.items" :key="it[0]">
+                      <li class="inline-flex items-baseline gap-1.5 px-3 py-1.5 rounded-full bg-cream border border-earth-200 text-sm font-medium text-slate-800">
+                        <span x-text="it[0]"></span>
+                        <span x-show="it[1]" class="text-xs italic text-forest-700" x-text="'(' + it[1] + ')'"></span>
+                      </li>
+                    </template>
+                  </ul>
                 </div>
-                <p class="text-slate-600 text-sm leading-relaxed" x-text="s.crops"></p>
-              </div>
-
-              <div class="p-6 rounded-xl bg-white border border-earth-200">
-                <div class="flex items-center gap-2 text-forest-700 font-bold text-xs uppercase mb-3">
-                  <i data-lucide="utensils" class="w-4 h-4"></i>
-                  <span>Kitchen & Table Highlights</span>
-                </div>
-                <p class="text-slate-600 text-sm leading-relaxed" x-text="s.cuisine"></p>
-              </div>
-
-              <div class="p-6 rounded-xl bg-white border border-earth-200">
-                <div class="flex items-center gap-2 text-forest-700 font-bold text-xs uppercase mb-3">
-                  <i data-lucide="hand" class="w-4 h-4"></i>
-                  <span>Visitor Hands-On Activities</span>
-                </div>
-                <p class="text-slate-600 text-sm leading-relaxed" x-text="s.activities"></p>
-              </div>
+              </template>
             </div>
 
           </div>
         </template>
       </div>
+
     </div>
   </section>
 
@@ -717,9 +715,16 @@
             icon: 'flower-2',
             headline: 'Sowing Seeds & Rhododendron Blooms',
             climate: 'Pleasant Days (12°C – 18°C), Cool Nights',
-            crops: 'Potato planting (red & purple varieties), barley seedbed preparation, wild nettle shoots (Sisnu), and greenhouse garlic & spinach.',
-            cuisine: 'Spring stinging nettle soup (Sisnu jhol), wild garlic stir-fry, steamed buckwheat bread with churned yak butter.',
-            activities: 'Terrace soil conditioning, seed-sowing masterclasses, wild herb identification walks through blooming lower forests.'
+            groups: [
+              { title: 'Staples, Roots & Bulbs', icon: 'wheat', note: 'Grain, tubers and alliums', items: [
+                ['Highland potatoes', 'alu'], ['Buckwheat', 'phapar'], ['White radish', 'mula'], ['Turnips'], ['Garlic'], ['Shallots'] ] },
+              { title: 'Leafy Greens & Herbs', icon: 'leaf', note: 'Fresh from beds and hillsides', items: [
+                ['Wild stinging nettle', 'sisnu'], ['Chives'], ['Coriander'], ['Rayo saag', 'broadleaf mustard'], ['Spinach'], ['Swiss chard'] ] },
+              { title: 'Vegetables', icon: 'sprout', note: 'Nursery and garden', items: [
+                ['Vegetable seedlings'] ] },
+              { title: 'Orchard Fruits', icon: 'apple', note: 'Blossom and early fruit', items: [
+                ['Apples'], ['Pears'], ['Peaches'], ['Plums'] ] }
+            ]
           },
           {
             id: 'monsoon',
@@ -728,9 +733,16 @@
             icon: 'cloud-rain',
             headline: 'Lush Terraces & Bio-Diversity Growth',
             climate: 'Lush & Misty (15°C – 22°C), Afternoon Showers',
-            crops: 'Rapid vegetative growth of indigenous potatoes, leafy greens, wild mint, medicinal dandelion roots, and mountain legumes.',
-            cuisine: 'Fresh sautéed organic greens (Saag), artisan Chhurpi and soft cheese, hearty vegetable stews (Shakpa).',
-            activities: 'Compost preparation, agro-forestry tree nursery tending, rainwater management workshops, high-altitude dairy observation.'
+            groups: [
+              { title: 'Staples, Roots & Bulbs', icon: 'wheat', note: 'Grain and tubers', items: [
+                ['New potatoes'], ['Buckwheat'] ] },
+              { title: 'Vegetables', icon: 'sprout', note: 'Garden and greenhouse', items: [
+                ['Cabbage'], ['Cauliflower'], ['Green peas'], ['Bush beans'], ['Tomatoes'], ['Chilies'], ['Cucumbers'], ['Zucchini'] ] },
+              { title: 'Leafy Greens & Herbs', icon: 'leaf', note: 'Cultivated and wild', items: [
+                ['Bok choy'], ['Lettuce'], ['Coriander'], ['Garden mint'], ['Wild mountain mint'], ['Scallions'], ['Dandelion'] ] },
+              { title: 'Wild Berries', icon: 'apple', note: 'Foraged on the hillsides', items: [
+                ['Wild Himalayan strawberries'], ['Yellow Himalayan raspberries', 'ainselu'] ] }
+            ]
           },
           {
             id: 'autumn',
@@ -739,20 +751,32 @@
             icon: 'sun',
             headline: 'Bumper Harvest & Crystal Mountain Views',
             climate: 'Crisp & Clear (10°C – 16°C), Sunny Skies',
-            crops: 'Major highland potato harvest, roasted Tsampa barley roasting, buckwheat threshing, seabuckthorn berry foraging.',
-            cuisine: 'Freshly grated Riki Kur (potato pancakes with somar cream), roasted tsampa porridge, freshly brewed hot seabuckthorn cider.',
-            activities: 'Hands-on potato harvesting festivals, barley milling at traditional watermills, winter vegetable greenhouse transplanting.'
+            groups: [
+              { title: 'Staples, Roots & Bulbs', icon: 'wheat', note: 'Main harvest crops', items: [
+                ['Highland potatoes'], ['Sweet & bitter buckwheat', 'phapar'], ['White radish', 'mula'], ['Turnips'] ] },
+              { title: 'Vegetables', icon: 'sprout', note: 'Late garden crops', items: [
+                ['Cabbage'], ['Late tomatoes'], ['Peppers'] ] },
+              { title: 'Leafy Greens & Herbs', icon: 'leaf', note: 'Cool-season greens', items: [
+                ['Rayo saag'], ['Winter spinach'], ['Spring onions'], ['Coriander'], ['Chives'], ['Wild thyme'] ] },
+              { title: 'Fruits & Berries', icon: 'apple', note: 'Orchard and hillside', items: [
+                ['Apples'], ['Peach'], ['Barberry', 'chutro'] ] }
+            ]
           },
           {
             id: 'winter',
             name: 'Winter Hearth & Greenhouses',
             months: 'December – February',
             icon: 'snowflake',
-            headline: 'Solar Greenhouses & Heritage Storytelling',
+            headline: 'Solar Greenhouses & Stored Harvests',
             climate: 'Sunny Days (4°C – 10°C), Sub-zero Nights',
-            crops: 'Solar greenhouse microgreens, spinach, winter leeks, root cellar curing of stored potatoes and dried alpine herbs.',
-            cuisine: 'Slow-simmered Sherpa Thukpa, butter tea (Su-chya), roasted barley snacks, and fireside fermented dried greens (Gundruk).',
-            activities: 'Solar greenhouse insulation engineering, indoor hearth cooking classes, evening Sherpa oral history & cultural sessions.'
+            groups: [
+              { title: 'In the Fields', icon: 'mountain', note: 'Resting under mulch', items: [
+                ['Mulched overwintering garlic'] ] },
+              { title: 'In Cellar Storage', icon: 'warehouse', note: 'Kept cool and dark', items: [
+                ['Cellar-stored potatoes'], ['Cellar-stored root crops'] ] },
+              { title: 'Passive Solar Greenhouse', icon: 'sun', note: 'Winter harvests', items: [
+                ['Spinach'], ['Rayo saag'], ['Turnips'], ['Carrots'], ['Winter radish'], ['Green onions'], ['Leeks'], ['Swiss chard'], ['Garlic shoots'], ['Coriander'], ['Lettuce'] ] }
+            ]
           }
         ],
 
